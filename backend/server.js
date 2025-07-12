@@ -6,10 +6,17 @@ import authRoutes from './routes/User.js';
 import authMiddleware from './middlewares/authMiddleware.js';
 import UserProfileRoutes from './routes/UserProfile.js';
 import ConnectionRoutes from "./routes/Connection.js";
-const app = express();
+import path from 'path';
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+const app = express();
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://backup-frontend.vercel.app/',
   credentials: true
 }));
 app.use(express.json());
